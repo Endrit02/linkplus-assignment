@@ -1,11 +1,13 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AddNewUser from '../components/AddNewUser';
 
 const Home = () => {
     const navigate = useNavigate();
 
     const [users, setUsers] = useState(null);
     const [searchValue, setSearchValue] = useState('');
+    const [showAddNew, setShowAddNew] = useState(false);
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value);
@@ -28,6 +30,20 @@ const Home = () => {
         }
     }, [searchValue, users])
 
+    const onSubmitHandler = (data) => {
+        const remapData = {
+            ...data,
+            company: {
+                name: data.company,
+            }
+        }
+        setUsers([
+            remapData,
+            ...users,
+        ]);
+        setShowAddNew(false);
+    }
+
     useEffect(() => {
         fetchUsers();
     }, [])
@@ -37,16 +53,19 @@ const Home = () => {
             <h1>Users List</h1>
             <div className="users-search">
                 <input type="text" placeholder='Search' value={searchValue} onChange={handleSearchChange} />
+                <button onClick={() => setShowAddNew(!showAddNew)}>Add New User</button>
             </div>
-            <div className="users-wrapper">
-                {filteredUsers?.map(user => (
-                    <div className="user" onClick={() => navigate(`/user/${user.id}`)}>
-                        <p>Name: {user.name}</p>
-                        <p>Email: {user.email}</p>
-                        <p>Company: {user.company.name}</p>
-                    </div>
-                ))}
-            </div>
+            {showAddNew ? (<AddNewUser onSubmitHandler={(e) => onSubmitHandler(e)} />) : (
+                <div className="users-wrapper">
+                    {filteredUsers?.map(user => (
+                        <div key={user.id} className="user" onClick={() => navigate(`/user/${user.id}`)}>
+                            <p>Name: {user.name}</p>
+                            <p>Email: {user.email}</p>
+                            <p>Company: {user.company.name}</p>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

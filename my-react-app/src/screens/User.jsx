@@ -5,22 +5,21 @@ const User = () => {
     const navigate = useNavigate();
     const params = useParams();
     const [user, setUser] = useState(null);
-    console.log(params);
     
-        const fetchUser = async () => {
-            try {
-                await fetch(`https://jsonplaceholder.typicode.com/users/${params.id}`)  .then(res => {
-                    return res.json(); 
-                })
-                .then(data => setUser(data))
-            } catch (error) {
-                console.log(error);
-            }
+    const fetchUser = async () => {
+        try {
+            await fetch(`https://jsonplaceholder.typicode.com/users/${params.id}`)  .then(res => {
+                return res.json(); 
+            })
+            .then(data => setUser(data))
+        } catch (error) {
+            console.log(error);
         }
-    
-        useEffect(() => {
-            fetchUser();
-        }, [])
+    }
+
+    useEffect(() => {
+        fetchUser();
+    }, [])
 
     return (
          <div className="wrapper">
