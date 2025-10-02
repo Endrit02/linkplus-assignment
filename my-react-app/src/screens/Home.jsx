@@ -1,6 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate();
+
     const [users, setUsers] = useState(null);
     const [searchValue, setSearchValue] = useState('');
 
@@ -37,7 +40,7 @@ const Home = () => {
             </div>
             <div className="users-wrapper">
                 {filteredUsers?.map(user => (
-                    <div className="user">
+                    <div className="user" onClick={() => navigate(`/user/${user.id}`)}>
                         <p>Name: {user.name}</p>
                         <p>Email: {user.email}</p>
                         <p>Company: {user.company.name}</p>
