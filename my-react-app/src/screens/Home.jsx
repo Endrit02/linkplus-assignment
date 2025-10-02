@@ -15,7 +15,7 @@ const Home = () => {
 
     const fetchUsers = async () => {
         try {
-            await fetch('https://jsonplaceholder.typicode.com/users')  .then(res => {
+            await fetch('https://jsonplaceholder.typicode.com/users').then(res => {
                 return res.json(); 
             })
             .then(data => setUsers(data))
@@ -33,6 +33,7 @@ const Home = () => {
     const onSubmitHandler = (data) => {
         const remapData = {
             ...data,
+            id: 1,
             company: {
                 name: data.company,
             }
