@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 
+import img from '../assets/arrow.svg';
+
 const User = () => {
     const navigate = useNavigate();
     const params = useParams();
@@ -23,7 +25,7 @@ const User = () => {
 
     return (
          <div className="wrapper">
-            <span onClick={() => navigate('/')}>{'< Back'}</span>
+            <span onClick={() => navigate('/')}>{<img src={img}/>}</span>
             <h1>User details</h1>
             <div className="user">
                 {user && (

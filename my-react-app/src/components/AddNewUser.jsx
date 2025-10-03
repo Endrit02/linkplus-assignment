@@ -16,7 +16,7 @@ const AddNewUser = ({ onSubmitHandler }) => {
     }
 
     return (
-        <form className="users-wrapper" 
+        <form className="users-wrapper"
             onSubmit={(e) => {
                 e.preventDefault();
                 onSubmitHandler(formData);
